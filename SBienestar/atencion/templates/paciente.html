@@ -1,5 +1,85 @@
 {% extends 'home.html' %}
-{% block main %}
+{% block main_content %}
 
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h2 class="text-center">
+					Buscar paciente 
+					<i class="fa fa-search"></i>
+				</h2>
+			</div>
+			<div class="panel-body">
+				<form method="POST">{% csrf_token %}
+					<div class="form-group">
+						<label>Escriba el documento del paciente</label>
+						<input type="number" name="cedula" required class="form-control" />
+					</div>
+					<div align="center">
+						<button type="submit" class="btn btn-primary">
+							Buscar <i class="fa fa-search"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% if error %}
+	<div class="col-md-6 col-md-offset-3">
+		<div class="alert alert-danger text-center">
+			<strong>Error</strong>, no existe el paciente
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% if paciente and post %}
+	<div class="row">
+
+	<div class="col-md-6 col-md-offset-3">
+		<div class="alert alert-success text-center">
+			<strong>Listo</strong>, paciente encontrado
+		</div>
+	</div>
+	
+	<br>
+
+	<div class="col-md-6 col-md-offset-3">
+		<table class="table table-bordered table-striped table-hovered">
+			<thead>
+				<tr>
+					<th class="text-center">facultad</th>
+					<th class="text-center">nombre</th>
+					<th class="text-center">identificacion</th>
+					<th class="text-center">acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="text-center">
+						{{ paciente.facultad }}
+					</td>
+					<td class="text-center">
+						{{ paciente.nombre_completo }}
+					</td>
+					<td class="text-center">
+						{{ paciente.cedula }}
+					</td>
+					<td class="text-center">
+						<a href="" class="btn btn-primary btn-xs">
+							reservar <i class="fa fa-calendar"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+{% endif %}
 
 {% endblock %}

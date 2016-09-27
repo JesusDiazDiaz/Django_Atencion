@@ -24,6 +24,10 @@ class BasePersona(models.Model):
         return '{0} {1}'.format(self.nombre, self.apellido)
 
 
+    def nombre_completo(self):
+        return self.__str__()
+
+
 class Paciente(BasePersona):
     facultad = models.CharField(max_length=50)
     religion = models.CharField(max_length=50)
@@ -33,6 +37,18 @@ class Paciente(BasePersona):
     vinculacion = models.CharField(max_length=50)
     ocupacion = models.CharField(max_length=50)
     eps = models.CharField(max_length=50)
+
+
+class procedendia():
+    pass
+
+
+class religion():
+    pass
+
+
+class facultad():
+    pass
 
 
 class Especialidad(models.Model):
@@ -69,7 +85,7 @@ class Consulta(models.Model):
 
 
 class Examen(models.Model):
-    exa_cons = models.ForeignKey(Consulta)
+    consultaP = models.ForeignKey(Consulta)
     fecha = models.DateTimeField()
     estatura = models.IntegerField()
     peso = models.IntegerField()

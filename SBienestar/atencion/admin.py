@@ -5,29 +5,28 @@ from .models import Paciente, Doctor, Especialidad, Consulta, Examen
 # Register your models here.
 
 @admin.register(Paciente)
-class adminPasiente(admin.ModelAdmin):
+class PasienteAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'apellido', 'cedula']
 
 
 @admin.register(Especialidad)
-class adminEspecialidad(admin.ModelAdmin):
+class EspecialidadAdmin(admin.ModelAdmin):
     list_display = ['id', 'nombre']
 
 
 @admin.register(Doctor)
-class adminDoctro(admin.ModelAdmin):
+class DoctorAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'apellido', ]
 
 
 @admin.register(Consulta)
-class consultaAdmin(admin.ModelAdmin):
-    list_display = ['paciente', 'doctor', 'fecha']
+class ConsultaAdmin(admin.ModelAdmin):
+    list_display = ['paciente', 'doctor']
 
 
 @admin.register(Examen)
-class examenAdmin(admin.ModelAdmin):
+class ExamenAdmin(admin.ModelAdmin):
     list_display = [
-        'paciente',
         'estatura',
         'peso',
         'FC',

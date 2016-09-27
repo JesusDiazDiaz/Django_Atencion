@@ -38,7 +38,16 @@ def log_out(request):
 
 @login_required
 def busqueda_paciente(request):
-    pass
+    context = {'post': False }
+    if request.POST:
+        cedula = request.POST.get('cedula')
+        try:
+            paciente = Paciente.objects.get(cedula=cedula)
+            context['paciente'] = paciente
+            context['post'] = True
+        except Paciente.DoesNotExist:
+            context['error'] = True
+    return render(request, 'paciente.html', context)
 
 
 @login_required
