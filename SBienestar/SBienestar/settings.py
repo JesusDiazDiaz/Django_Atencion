@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'SBienestar.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'mysql_cymysql',
+        'NAME': 'libre',
+        'USER': 'root',
+        'PASSWORD': '64565764',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 

@@ -1,8 +1,45 @@
 from django.contrib import admin
-from .models import Paciente, Doctor, Especialidad, Consulta, Examen
+from .models import Paciente, Doctor, Especialidad, Consulta, Examen, Facultad, Programa, Eps, Religion, Pais, \
+    Departamento, Ciudad
 
 
 # Register your models here.
+@admin.register(Facultad)
+class FacultadAdmin(admin.ModelAdmin):
+    list_display = [
+        'nombre',
+    ]
+
+
+@admin.register(Programa)
+class ProgramaAdmin(FacultadAdmin):
+    pass
+
+
+@admin.register(Eps)
+class EpsAdmin(FacultadAdmin):
+    pass
+
+
+@admin.register(Pais)
+class PaisAdmin(FacultadAdmin):
+    pass
+
+
+@admin.register(Departamento)
+class DepartamentoAdmin(FacultadAdmin):
+    pass
+
+
+@admin.register(Ciudad)
+class CiudadAdmin(FacultadAdmin):
+    pass
+
+
+@admin.register(Religion)
+class ReligionAdmin(FacultadAdmin):
+    pass
+
 
 @admin.register(Paciente)
 class PasienteAdmin(admin.ModelAdmin):
@@ -16,7 +53,7 @@ class EspecialidadAdmin(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ['nombre', 'apellido', ]
+    pass
 
 
 @admin.register(Consulta)

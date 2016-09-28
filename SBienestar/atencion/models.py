@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -27,22 +28,27 @@ class BasePersona(models.Model):
         return self.__str__()
 
 
-class Paciente(BasePersona):
-    facultad = models.CharField(max_length=50)
-    religion = models.CharField(max_length=50)
-    procedencia = models.CharField(max_length=50)
-    residencia = models.CharField(max_length=50)
-    direccion = models.CharField(max_length=50)
-    vinculacion = models.CharField(max_length=50)
-    ocupacion = models.CharField(max_length=50)
-    eps = models.CharField(max_length=50)
-
-
 class PropiedadNombre(models.Model):
     nombre = models.CharField(max_length=50)
 
     class Meta:
         abstract = True
+
+
+class Eps(PropiedadNombre):
+    pass
+
+
+class Programa(PropiedadNombre):
+    pass
+
+
+class Facultad(PropiedadNombre):
+    programa = models.ForeignKey(Programa)
+
+
+class Religion(PropiedadNombre):
+    pass
 
 
 class Pais(PropiedadNombre):
@@ -56,6 +62,9 @@ class Departamento(PropiedadNombre):
 class Ciudad(PropiedadNombre):
     depto = models.ForeignKey(Departamento)
 
+    def __str__(self):
+        return '{0} : {1}'.format(self.nombre, self.depto.nombre)
+
 
 class Especialidad(models.Model):
     nombre = models.CharField(max_length=50)
@@ -68,23 +77,37 @@ class Especialidad(models.Model):
         return self.nombre
 
 
-class Doctor(BasePersona):
+class Paciente(BasePersona):
+    tipo_vinculacion = (
+        ('Est', 'Estudiante'),
+        ('Fun', 'Funcionario'),
+        ('Egr', 'Egresado'),
+        ('vis', 'Visitante'),
+    )
+    facultad = models.ForeignKey(Facultad)
+    religion = models.ForeignKey(Religion)
+    procedencia = models.ForeignKey(Ciudad)
+    residencia = models.ForeignKey(Ciudad)
+    direccion = models.CharField(max_length=50)
+    vinculacion = models.CharField(max_length=3, choices=tipo_vinculacion)
+    ocupacion = models.CharField(max_length=50)
+    eps = models.ForeignKey(Eps)
+
+
+class Doctor(User):
     especialidad = models.ForeignKey(Especialidad)
 
     class Meta:
         verbose_name = 'Doctor'
         verbose_name_plural = 'Doctores'
 
-    def __str__(self):
-        return '{0} {1} - Especialidad: {2}'.format(self.nombre, self.apellido, self.especialidad)
+        # def __str__(self):
+        #    return '{0} {1} - Especialidad: {2}'.format(self.nombre, self.apellido, self.especialidad)
 
 
 class Consulta(models.Model):
     doctor = models.ForeignKey(Doctor)
     paciente = models.ForeignKey(Paciente)
-
-    # class Meta:
-    #    unique_together = ['doctor', 'paciente']
 
     def __str__(self):
         return self.paciente.nombre
