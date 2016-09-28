@@ -33,7 +33,10 @@
 			<strong>Error</strong>, no existe el paciente
 		</div>
 	</div>
-	{% endif %}
+    <div class="col-md-4 col-md-offset-5">
+        <a href="#" type="button" class="btn btn-info">Agregar paciente</a>
+    </div>
+    {% endif %}
 </div>
 
 {% if paciente and post %}
@@ -51,22 +54,22 @@
 		<table class="table table-bordered table-striped table-hovered">
 			<thead>
 				<tr>
-					<th class="text-center">facultad</th>
-					<th class="text-center">nombre</th>
-					<th class="text-center">identificacion</th>
-					<th class="text-center">acciones</th>
+                    <th class="text-center">Nombre</th>
+                    <th class="text-center">Identificacion</th>
+					<th class="text-center">Facultad</th>
+					<th class="text-center">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td class="text-center">
-						{{ paciente.facultad }}
-					</td>
-					<td class="text-center">
 						{{ paciente.nombre_completo }}
 					</td>
 					<td class="text-center">
 						{{ paciente.cedula }}
+					</td>
+					<td class="text-center">
+						{{ paciente.facultad }}
 					</td>
 					<td class="text-center">
 						<a href="" class="btn btn-primary btn-xs">

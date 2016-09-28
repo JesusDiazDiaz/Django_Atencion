@@ -23,7 +23,6 @@ class BasePersona(models.Model):
     def __str__(self):
         return '{0} {1}'.format(self.nombre, self.apellido)
 
-
     def nombre_completo(self):
         return self.__str__()
 
@@ -39,16 +38,23 @@ class Paciente(BasePersona):
     eps = models.CharField(max_length=50)
 
 
-class procedendia():
+class PropiedadNombre(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    class Meta:
+        abstract = True
+
+
+class Pais(PropiedadNombre):
     pass
 
 
-class religion():
-    pass
+class Departamento(PropiedadNombre):
+    pais = models.ForeignKey(Pais)
 
 
-class facultad():
-    pass
+class Ciudad(PropiedadNombre):
+    depto = models.ForeignKey(Departamento)
 
 
 class Especialidad(models.Model):
@@ -77,7 +83,7 @@ class Consulta(models.Model):
     doctor = models.ForeignKey(Doctor)
     paciente = models.ForeignKey(Paciente)
 
-    #class Meta:
+    # class Meta:
     #    unique_together = ['doctor', 'paciente']
 
     def __str__(self):
