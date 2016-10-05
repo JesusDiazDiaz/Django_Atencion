@@ -1,0 +1,55 @@
+{% extends 'index.html' %}
+{% block main %}
+    {% load staticfiles %}
+    <header class="header header-transparent header-waterfall ui-header">
+        <ul class="nav nav-list pull-left">
+            <li>
+                <a data-toggle="menu" href="#ui_menu">
+                    <span class="icon icon-lg">menu</span>
+                </a>
+            </li>
+        </ul>
+        <a class="header-logo margin-left-no" href="index.html">Universidad libre</a>
+        <ul class="nav nav-list pull-right">
+            <li class="dropdown margin-right">
+                <a class="dropdown-toggle padding-left-no padding-right-no" data-toggle="dropdown">
+                    <span class="access-hide">John Smith</span>
+                    <span class="avatar avatar-sm"><img alt="alt text for John Smith avatar"
+                                                        src="{% static 'images/users/logoLibre.png' %}"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="padding-right-lg waves-attach" href="{% url 'log_out' %}"><span
+                                class="icon icon-lg margin-right">exit_to_app</span>Salir</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </header>
+    <nav aria-hidden="true" class="menu" id="ui_menu" tabindex="-1">
+        <div class="menu-scroll">
+            <div class="menu-content">
+                <a class="menu-logo" href="{% url 'home' %}">Inicio</a>
+                <ul class="nav">
+                    <li>
+                        <a href="{% url 'buscar_paciente' %}">Buscar paciente</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'agregar_paciente' %}">Agregar paciente</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'citas' %}">Ver Consultas</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="content">
+        {% block main-content %}{% endblock %}
+    </main>
+    <footer class="ui-footer">
+        <div class="container">
+            <p>Jesus David Diaz</p>
+        </div>
+    </footer>
+{% endblock %}

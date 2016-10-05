@@ -1,6 +1,7 @@
+from atencion.forms import DoctorForm
 from django.contrib import admin
-from .models import Paciente, Doctor, Especialidad, Consulta, Examen, Facultad, Programa, Eps, Religion, Pais, \
-    Departamento, Ciudad
+from .models import Paciente, Doctor, Especialidad, Consulta, Facultad, Programa, Eps, Religion, Pais, \
+    Departamento, Ciudad, HistoriaClinica, Antecedente, Enfermedad
 
 
 # Register your models here.
@@ -41,6 +42,19 @@ class ReligionAdmin(FacultadAdmin):
     pass
 
 
+@admin.register(Enfermedad)
+class EnfermedadAdmin(FacultadAdmin):
+    pass
+
+
+@admin.register(Antecedente)
+class AntecedenteAdmin(FacultadAdmin):
+    list_display = [
+        'nombre',
+        'descripcion',
+    ]
+
+
 @admin.register(Paciente)
 class PasienteAdmin(admin.ModelAdmin):
     list_display = ['nombre', 'apellido', 'cedula']
@@ -53,17 +67,28 @@ class EspecialidadAdmin(admin.ModelAdmin):
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['get_full_name', 'especialidad']
+    form = DoctorForm
 
 
 @admin.register(Consulta)
 class ConsultaAdmin(admin.ModelAdmin):
-    list_display = ['paciente', 'doctor']
-
-
-@admin.register(Examen)
-class ExamenAdmin(admin.ModelAdmin):
     list_display = [
+        'paciente',
+        'motivo',
+        'cod_diagnostico',
+        'fecha',
+        'conducta',
+        'recomendaciones'
+    ]
+
+
+@admin.register(HistoriaClinica)
+class HistoriaClinicaAdmin(admin.ModelAdmin):
+    list_display = [
+        'doctor',
+        'consulta',
+        'enfermedad',
         'estatura',
         'peso',
         'FC',
@@ -77,5 +102,5 @@ class ExamenAdmin(admin.ModelAdmin):
         'abdomen',
         'genito_urinario',
         'extremidades',
-        'neurologico',
+        'neurologico'
     ]

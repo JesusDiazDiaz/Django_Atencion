@@ -1,92 +1,91 @@
-{% extends 'home.html' %}
-{% block main_content %}
+{% extends 'basehome.html' %}
+{% block main-content %}
 
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h2 class="text-center">
-					Buscar paciente 
-					<i class="fa fa-search"></i>
-				</h2>
-			</div>
-			<div class="panel-body">
-				<form method="POST">{% csrf_token %}
-					<div class="form-group">
-						<input type="number" name="cedula" required class="form-control" placeholder="Identificacion" />
-					</div>
-					<div align="center">
-						<button type="submit" class="btn btn-primary">
-							Buscar <i class="fa fa-search"></i>
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	{% if error %}
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="alert alert-danger text-center">
-                Paciente no registrado.
+    <div class="content-header ui-content-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <h1 class="content-heading">Buscar paciente</h1>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div align="center">
-            <a href="#" type="button" class="btn btn-info">Agregar paciente</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                <section class="content-inner margin-top-no">
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner">
+                                <form method="POST">{% csrf_token %}
+
+                                    <div class="form-group form-group-label">
+                                        <label for="ide" class="floating-label">Identificacion</label>
+                                        <input type="number" required class="form-control" name="cc" id="ide">
+                                        <br>
+                                        <input type="submit" class="btn btn-brand" value="Buscar">
+                                        {% if error %}
+                                            <a href="{% url 'agregar_paciente' %}" class="btn btn-verde">Agregar</a>
+                                        {% endif %}
+                                    </div>
+                                    {% if error %}
+                                        <div class="col-md-6 col-md-offset-3 alert alert-danger" align="center">
+                                            Paciente no encontrado
+                                        </div>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
+        {% if paciente and post %}
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <section class="content-inner margin-top-no">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="card-inner">
+                                    <div class="alert alert-success" align="center">
+                                        Paciente encontrado !
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                <td>Edad</td>
+                                                <td>Telefono</td>
+                                                <td>Vinculacion</td>
+                                                <td>Eps</td>
+                                                <td>Religion</td>
+                                                <td>Consultas</td>
+                                                <td>Acciones</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>{{ paciente.nombre_completo }}</td>
+                                                <td>{{ paciente.edad }}</td>
+                                                <td>{{ paciente.telefono }}</td>
+                                                <td>{{ paciente.vinculacion }}</td>
+                                                <td>{{ paciente.eps }}</td>
+                                                <td>{{ paciente.religion }}</td>
+                                                <td>{{ consultas }}</td>
+                                                <td><a href="{% url 'agregar_consulta' %}" class="btn btn-brand">Agregar</a></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        {% endif %}
     </div>
-
-
-    {% endif %}
-</div>
-
-{% if paciente and post %}
-	<div class="row">
-
-	<div class="col-md-6 col-md-offset-3">
-		<div class="alert alert-success text-center">
-			<strong>Listo</strong>, paciente encontrado
-		</div>
-	</div>
-	
-	<br>
-
-	<div class="col-md-6 col-md-offset-3">
-		<table class="table table-bordered table-striped table-hovered">
-			<thead>
-				<tr>
-                    <th class="text-center">Nombre</th>
-                    <th class="text-center">Identificacion</th>
-					<th class="text-center">Facultad</th>
-					<th class="text-center">Acciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="text-center">
-						{{ paciente.nombre_completo }}
-					</td>
-					<td class="text-center">
-						{{ paciente.cedula }}
-					</td>
-					<td class="text-center">
-						{{ paciente.facultad }}
-					</td>
-					<td class="text-center">
-						<a href="" class="btn btn-primary btn-xs">
-							reservar <i class="fa fa-calendar"></i>
-						</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-</div>
-
-
-{% endif %}
 
 {% endblock %}

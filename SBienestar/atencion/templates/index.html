@@ -8,11 +8,14 @@
     <meta name="author" content="Jesus Diaz">
     <title>Libre</title>
     {% load staticfiles %}
-    {% block styles %}{% endblock %}
-    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <link href="{% static 'css/base.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/project.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
-<body>
-{% block main %}{% endblock %}
+<body class="page-brand">
+    {% block main %}{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="{% static 'js/base.min.js' %}"></script>
+	<script src="{% static 'js/project.min.js' %}"></script>
 </body>
 </html>

@@ -1,0 +1,51 @@
+{% extends 'basehome.html' %}
+{% block main-content %}
+
+    <div class="content-header ui-content-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <h1 class="content-heading">
+                        Consultas
+                        {% if user.doctor %}
+                            de <strong>{{ user.get_full_name }}</strong>
+                        {% endif %}
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                <section class="content-inner margin-top-no">
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td>paciente</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for cita in historias_clinicas %}
+                                            <tr>
+                                                <td>{{ cita.consulta.paciente }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

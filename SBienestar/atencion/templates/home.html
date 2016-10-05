@@ -1,38 +1,62 @@
-{% extends 'index.html' %}
-{% block styles %}
-    {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'css/simple-sidebar.css' %}">
-{% endblock %}
-{% block main %}
-    <div id="wrapper">
+{% extends 'basehome.html' %}
 
-        <!-- Sidebar -->
-        {% include 'sidebar.html' %}
-        <!-- /#sidebar-wrapper -->
+{% block main-content %}
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                {% block main_content %}
-                {% endblock %}
+    <div class="content-header ui-content-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <h1 class="content-heading">Estadisticas</h1>
+                </div>
             </div>
         </div>
-        <!-- /#page-content-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                <section class="content-inner margin-top-no">
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="card card-brand-accent">
+                                            <div class="card-main">
+                                                <div class="card-inner">
+                                                    <h3>Dia</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-brand-accent">
+                                            <div class="card-main">
+                                                <div class="card-inner">
+                                                    <h3>Mes</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card card-brand-accent">
+                                            <div class="card-main">
+                                                <div class="card-inner">
+                                                    <h3>Total</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
 
-    <!-- jQuery -->
-    <script src="{% static 'js/jquery.js' %}"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-    <!-- Menu Toggle Script -->
-    <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-    </script>
 {% endblock %}
+
+
+
+
