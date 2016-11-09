@@ -1,0 +1,71 @@
+{% extends 'index.html' %}
+{% block main %}
+    <header class="header header-brand ui-header">
+        <span class="header-logo">Universidad Libre</span>
+    </header>
+    {% load staticfiles %}
+    <main class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-lg-push-4 col-sm-6 col-sm-push-3">
+                    <section class="content-inner">
+                        <div class="card">
+                            <div class="card-main">
+                                <div class="card-header">
+                                    <div class="card-inner">
+                                        <h1 class="card-heading">Iniciar Sesion</h1>
+                                    </div>
+                                </div>
+                                <div class="card-inner">
+                                    <p class="text-center">
+										<span class="avatar avatar-inline avatar-lg">
+											<img alt="Login" src="{% static 'images/users/logoLibre.png' %}">
+										</span>
+                                    </p>
+                                    <form class="form" method="POST"> {% csrf_token %}
+                                        {% if panel %}
+                                            <div class="alert alert-danger" align="center">
+                                            {{ msj }}
+                                            </div>
+                                        {% endif %}
+                                <div class="form-group form-group-label">
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-push-1">
+                                            <label class="floating-label" for="ui_login_username">Usuario</label>
+                                            <input required class="form-control" id="ui_login_username" type="text"
+                                                   name="username">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-label">
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-push-1">
+                                            <label class="floating-label" for="ui_login_password">Contraseña</label>
+                                            <input required class="form-control" id="ui_login_password" type="password"
+                                                   name="password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-10 col-md-push-1">
+                                            <button class="btn btn-block btn-rojo waves-attach waves-light">Entrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+                </section>
+            </div>
+        </div>
+        </div>
+    </main>
+    <footer class="ui-footer">
+        <div class="container">
+            <p>Jesus David Diaz Diaz</p>
+        </div>
+    </footer>
+{% endblock %}

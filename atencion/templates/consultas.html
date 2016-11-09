@@ -1,0 +1,46 @@
+{% extends 'basehome.html' %}
+{% block main-content %}
+
+    <div class="content-header ui-content-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <h1 class="content-heading">
+                        Mis consultas
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                <section class="content-inner margin-top-no">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Paciente</th>
+                                <th>Motivo</th>
+                                <th>Programa</th>
+                                <th>Fecha</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for c in consultas %}
+                                <tr>
+                                    <td>{{ c.paciente.nombre_completo }}</td>
+                                    <td>{{ c.motivo }}</td>
+                                    <td>{{ c.paciente.programa }}</td>
+                                    <td>{{ c.fecha }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

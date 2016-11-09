@@ -1,0 +1,78 @@
+    {% extends 'basehome.html'%}
+{% block main-content%}
+
+ <div class="content-header ui-content-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <h1 class="content-heading"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                <section class="content-inner margin-top-no">
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner margin-bottom-no">
+                                <p class="card-heading">
+                                    <div class="alert alert-success" align="center">
+                                        <strong>Consulta guardada con exito !</strong>
+                                    </div>
+                                </p>
+                                <div class="card-table">
+                                    <div class="table-responsive">
+                                        <table class="table" title="A table within a card">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2"><b>Paciente</b> {{ consulta.paciente.nombre_completo }}</td>
+                                                    <td colspan="1"><b>Doctor: </b> {{ consulta.doctor}} </td>
+                                                    <td><b>Motivo:</b> {{ consulta.motivo }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Codigo Diagnostico:</b> {{ consulta.cod_diagnostico  }}</td>
+                                                    <td colspan="2"><b>Fecha:</b> {{ consulta.fecha }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Conducta: </b> {{ consulta.conducta }}</td>
+                                                    <td colspan="2"><b>Recomendaciones:</b> {{ consulta.recomendaciones }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <div class="card-action-btn pull-right">
+                                    <a href="{% url 'modificar_consulta' consulta.id %}" data-toggle="tooltip" title="Editar" class="btn btn-indigo">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a data-backdrop="static" data-toggle="modal" href="#dialog_delete_consulta" class="btn btn-rojo">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    <div aria-hidden="true" class="modal modal-va-middle fade" id="dialog_delete_consulta" role="dialog" tabindex="-1">
+                                        <div class="modal-dialog modal-xs">
+                                            <div class="modal-content">
+                                                <div class="modal-inner">
+                                                    <p class="h5 margin-top-sm text-black-hint">Si desea eliminar esta consulta ?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <p class="text-right">
+                                                        <a class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal">Cancelar</a>
+                                                        <a class="btn btn-flat btn-brand-accent waves-attach" href="{% url 'eliminar_consulta' consulta.id %}">Aceptar</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="{% url 'agregar_examen' consulta.id %}" class="btn btn-teal">Agregar Examen Fisico</a>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock%}

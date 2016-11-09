@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="Sistemas atencion libre">
+    <meta name="author" content="Jesus Diaz">
+    <title>Libre</title>
+    {% load staticfiles %}
+    
+    <link href="{% static 'css/base.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/project.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="http://fontawesome.io/assets/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+<body class="page-brand">
+    {% block main %}{% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="{% static 'js/base.min.js' %}"></script>
+	<script src="{% static 'js/project.min.js' %}"></script>
+    <script src="{% static 'js/mi.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{% extends 'basehome.html'%}
+{% block main-content%}
+
+    <div class="content-header ui-content-header" xmlns="http://www.w3.org/1999/html">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                    <h1 class="content-heading">{{ examen.consulta }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+                <section class="content-inner margin-top-no">
+                    <div class="card">
+                        <div class="card-main">
+                            <div class="card-inner margin-bottom-no">
+                                <p class="card-heading">
+                                    <div class="alert alert-success" align="center">
+                                        <strong>Examen fisico guardado con exito.</strong>
+                                    </div>
+                                </p>
+                                <div class="card-table">
+                                    <div class="table-responsive">
+                                        <table class="table" title="A table within a card">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="2"><b>Enfermedad: </b> {{ examen.enfermedad}} </td>
+                                                    <td><b>Peso:</b> {{ examen.peso }}</td>
+                                                    <td><b>FC:</b> {{ examen.FC }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>FR:</b> {{ examen.FR }}</td>
+                                                    <td colspan="2"><b>Temperatura:</b>  {{ examen.temperatura }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>ORL:</b> {{ examen.orl }}</td>
+                                                    <td colspan="2"><b>Ostio Muscular:</b> {{ examen.ostio_muscular }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Cabeza Cuello:</b>{{ examen.cabeza_cuello }}</td>
+                                                    <td colspan="2"><b>Torax:</b> {{ examen.torax }}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Abdomen:</b> {{ examen.abdomen }}</td>
+                                                    <td colspan="2"><b>Genito Urinario:</b> {{ examen.genito_urinario }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><b>Extremidades:</b> {{ examen.extremidades }}</td>
+                                                    <td colspan="2"><b>Neurologico:</b> {{ examen.neurologico }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <div class="card-action-btn pull-right">
+                                    <a href="{% url 'modificar_examen' examen.id %}" data-toggle="tooltip" title="Editar" class="btn btn-indigo">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock%}

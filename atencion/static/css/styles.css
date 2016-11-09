@@ -1,0 +1,120 @@
+
+.btn-rojo {
+    background-color: #f44336;
+    color: #fff!important;
+}
+
+.header-brand {
+    background-color: #c5292a;
+    color: #fff;
+}
+
+.page-brand .header-transparent:before {
+    background-color: #c5292a;
+}
+
+.page-brand .ui-content-header {
+    background-image: url(./images/bg/red.jpg);
+}
+
+.content-header-brand, .page-brand .content-header {
+    background-color: #c5292a;
+    color: #fff;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.btn-verde {
+    background-color: #4CAF50;
+    color: #fff!important;
+}
+
+.btn-indigo{
+    background-color: #3F51B5;
+    color: #fff!important;
+}
+
+.btn-teal{
+    background-color: #009688;
+    color: #fff!important;
+}
+
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+.color-indigo{
+    background-color: #3F51B5;
+}
+
+.color-purple{
+    background-color: #673AB7;
+}
+
+.color-teal{
+    background-color: #009688;
+}
+
+.flex-child{
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.flex-parent{
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.nombre{
+    font-size: 2em; 
+    padding-left: 0;
+}
+
+.table-historia{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.contenedor-historia{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.texto-consulta{
+    padding: 16px;
+}
+
+.card-estadisticas{
+    width: 200px;
+    height: 100px;
+    box-shadow: rgb(229, 229, 229) 0px -1px 0px, rgba(0, 0, 0, 0.117647) 0px 0px 2px, rgba(0, 0, 0, 0.239216) 0px 2px 4px;
+    display: flex;
+    margin-top: 0px;
+    margin-bottom: 24px;
+    margin-right: 16px;
+    margin-left: 16px;
+    border-radius: 2px;
+}

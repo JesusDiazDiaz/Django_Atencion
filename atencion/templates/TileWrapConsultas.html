@@ -1,0 +1,81 @@
+<div class="tile-wrap" id="ui_tile_example_parent">
+    <div class="tile">
+        <div class="tile-inner">
+            <div class="col-md-6">
+                <b>Motivo</b>
+            </div>
+            <div class="col-md-6" align="right">
+               <b>Fecha</b>
+            </div>
+        </div>
+    </div>
+    {% for con in consultas %}
+    <div class="tile tile-collapse">
+        <div data-parent="#ui_tile_example_parent" data-target="#ui_tile_example_4{{ con.id }}" data-toggle="tile">
+            <div class="tile-inner">
+                <div class="text-overflow col-md-6">
+                    {{ con.motivo }}
+                </div>
+                <div class="col-md-6" align="right">
+                    {{ con.fecha }}
+                </div>
+            </div>
+        </div>
+        <div class="tile-active-show collapse" id="ui_tile_example_4{{ con.id }}">
+            <div class="tile-sub">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="texto-consulta"> <b>Doctor: </b>{{ con.doctor }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="texto-consulta"> <b>Codigo diagnostico: </b>{{ con.cod_diagnostico }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="texto-consulta"> <b>Recomendaciones: </b><br>{{ con.recomendaciones }}</p>
+                    </div>
+                    <div class="col-md-6">
+                         <p class="texto-consulta"> <b>Conducta: </b><br>{{ con.conducta }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tile-footer">
+                <div class="tile-footer-btn pull-right">
+                    <div class="grupo-btn">
+                        <a href=" {% url 'ver_examen' con.id %}" class="btn btn-teal" data-toggle="tooltip" title="Examen" >
+                            <i class="fa fa-stethoscope"></i>
+                        </a>
+                        <a href="{% url 'modificar_consulta' con.id %}" data-toggle="tooltip" title="Editar" class="btn btn-indigo">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a data-backdrop="static" data-toggle="modal" href="#dialog_delete{{ con.id }}" class="btn btn-rojo">
+                           <i class="fa fa-trash"></i>
+                        </a>
+                         <div aria-hidden="true" class="modal modal-va-middle fade" id="dialog_delete{{ con.id }}" role="dialog" tabindex="-1">
+                            <div class="modal-dialog modal-xs">
+                                <div class="modal-content">
+                                    <div class="modal-inner">
+                                        <p class="h5 margin-top-sm text-black-hint">Si desea eliminar esta consulta ?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <p class="text-right">
+                                            <a class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal">
+                                                Cancelar
+                                            </a>
+                                            <a class="btn btn-flat btn-brand-accent waves-attach"   href="{% url 'eliminar_consulta' con.id %}">
+                                                Aceptar
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
