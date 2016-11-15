@@ -11,9 +11,19 @@ class PacienteForm(forms.ModelForm):
 
 
 class AntecedenteForm(forms.ModelForm):
+    paciente = forms.ModelChoiceField(
+        queryset=[],
+        empty_label=None
+    )
+
     class Meta:
         model = Antecedente
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        paciente = kwargs.pop('paciente', None)
+        super().__init__(*args, **kwargs)
+        self.fields['paciente'].queryset = Paciente.objects.filter(id=paciente)
 
 
 class DoctorForm(UserCreationForm):

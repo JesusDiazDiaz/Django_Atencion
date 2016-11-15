@@ -3,13 +3,15 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib import messages
-from .models import Paciente, Consulta, Doctor, ExamenFisico
-from .forms import PacienteForm, ConsultaForm, ExamenForm
+from .models import Paciente, Consulta, Doctor, ExamenFisico, Antecedente
+from .forms import PacienteForm, ConsultaForm, ExamenForm, AntecedenteForm
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models import Q
+from django.forms import formset_factory
 from datetime import date
+from django.views.defaults import page_not_found
 
 
 def log_in(request):
@@ -76,8 +78,27 @@ def agregar_paciente(request):
     if request.POST:
         if form.is_valid():
             form.save()
-            return redirect('ver_paciente')
+            return redirect('agregar_antecedentes')
     return render(request, 'aggPaciente.html', {'form': form})
+
+
+@login_required
+def add_antecedentes(request):
+    paciente = Paciente.objects.order_by('-id')[0]
+    form = AntecedenteForm(
+        request.POST or None,
+        paciente=paciente.id
+    )
+    if request.POST and form.is_valid():
+        form.save()
+        return redirect('guardar_antecedentes')
+    return render(request, 'antecedentes.html',{'form': form})
+
+
+@login_required
+def save_antecentedes(request):
+    antecedente = Antecedente.objects.order_by('-id')[0]
+    return render(request, 'GuardadoAntecedentes.html', {'antecedente': antecedente})
 
 
 @login_required
@@ -219,11 +240,10 @@ class VerConsultas(BaseListViewMixin):
 
 @login_required
 def historia_clinica(request, **kwargs):
-    paciente = Paciente.objects.get(id=kwargs.get('pk'))
-    consultas = Consulta.objects.filter(paciente_id=kwargs.get('pk'))
     context = {
-        'paciente': paciente,
-        'consultas': consultas
+        'paciente': Paciente.objects.get(id=kwargs.get('pk')),
+        'consultas': Consulta.objects.filter(paciente_id=kwargs.get('pk')),
+        'antecedentes': Antecedente.objects.filter(paciente__id=kwargs.get('pk'))
     }
     return render(request, 'historiaClinica.html', context)
 
@@ -250,3 +270,6 @@ class GuardarExamen(BaseListViewMixin):
 
     def get_queryset(self):
         return self.model.objects.order_by('-id')[0]
+
+def error_404(request):
+    return page_not_found(request, '404.html')

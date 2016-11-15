@@ -89,7 +89,6 @@ class ConsultaAdmin(admin.ModelAdmin):
 class ExamenFisicoAdmin(admin.ModelAdmin):
     list_display = [
         'consulta',
-        'enfermedad',
         'estatura',
         'peso',
         'FC',
@@ -97,7 +96,7 @@ class ExamenFisicoAdmin(admin.ModelAdmin):
         'temperatura',
         'orl',
         'piel_anexo',
-        'ostio_muscular',
+        'osteo_muscular',
         'cabeza_cuello',
         'torax',
         'abdomen',

@@ -20,7 +20,7 @@
                                 <p class="card-heading"><i class="fa fa-address-card-o" aria-hidden="true"></i> Ficha de identificacion</p>
                                 <div class="card-table">
                                     <div class="table-responsive">
-                                        <table class="table" title="A table within a card">
+                                        <table class="table" title="Ficha identificacion">
                                             <tbody>
                                                 <tr>
                                                     <td><b>Nombre: </b>{{ paciente.nombre_completo }}</td>
@@ -54,7 +54,7 @@
                                                 <tr>
                                                   <td><b>Direccion: </b>{{ paciente.direccion }}</td>
                                                   <td><b>Religion: </b>{{ paciente.religion }}</td>
-                                                  <td><b>Nacimiento: </b>{{ paciente.nacimiento}}</td>
+                                                  <td><b>Nacimiento: </b>{{ paciente.fecha_nacimiento }}</td>
                                                   <td></td>
                                                 </tr>
                                             </tbody>
@@ -64,6 +64,36 @@
                             </div>
                         </div>
                     </div>
+                <div class="card">
+                    <div class="card-main">
+                        <div class="card-inner margin-bottom-no c-consultas-historia">
+                            <p class="card-heading c-consultas-titulo"><i class="fa fa-child" aria-hidden="true"></i>Antecedentes</p>
+                            <div class="card-table">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                <td>Tipo</td>
+                                                <td>Descripcion</td>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for a in antecedentes %}
+                                            <tr>
+                                                <td>{{ a.nombre }}</td>
+                                                <td>{{ a.tipo }}</td>
+                                                <td>{{ a.descripcion }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
                 <div class="card">
                     <div class="card-main">
                         <div class="card-inner margin-bottom-no c-consultas-historia">

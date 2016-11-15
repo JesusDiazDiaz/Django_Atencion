@@ -15,9 +15,11 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from atencion import views
-from django.conf.urls import url
+from django.conf.urls import url, handler404
 from django.contrib import admin
+from atencion.views import error_404
 
+handler404 = '404.html'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -39,6 +41,8 @@ urlpatterns = [
     url(r'^agregar-examen/(?P<pk>\w+)/', views.agregar_examen, name='agregar_examen'),
     url(r'^modificar-examen/(?P<pk>\w+)/', views.modificar_examen, name='modificar_examen'),
     url(r'^guardar-examen/', views.GuardarExamen.as_view(), name='guardar_examen'),
-    url(r'^historia-clinica/(?P<pk>\w+)/', views.historia_clinica, name='historia_clinica')
+    url(r'^historia-clinica/(?P<pk>\w+)/', views.historia_clinica, name='historia_clinica'),
+    url(r'^agregar-antecedentes/', views.add_antecedentes, name='agregar_antecedentes'),
+    url(r'^guardar-antecedentes/', views.save_antecentedes, name='guardar_antecedentes')
 ]
 

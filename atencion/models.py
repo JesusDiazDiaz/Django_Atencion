@@ -98,10 +98,11 @@ class Paciente(BasePersona):
         ('Viudo', 'Viudo/a'),
     )
     #tipo de sangre
-    vinculacion = models.CharField(max_length=12, choices=tipo_vinculacion)
+    fecha_nacimiento = models.DateField(default="1900-12-30")
+
     estado_civil = models.CharField(max_length=7, choices=estadoC)
-    nacimiento = models.DateField(default="1900-12-30")
     ocupacion = models.CharField(max_length=50)
+    vinculacion = models.CharField(max_length=12, choices=tipo_vinculacion)
     facultad = models.ForeignKey(Facultad, blank=True, null=True)
     programa = models.ForeignKey(Programa, blank=True, null=True)
     eps = models.ForeignKey(Eps)
@@ -115,12 +116,13 @@ class Paciente(BasePersona):
 class Antecedente(models.Model):
     paciente = models.ForeignKey(Paciente)
     tipo_Antecedestes = (
-        ('P', 'Personal'),
-        ('F', 'Familiar')
+        ('Personal', 'Personal'),
+        ('Familiar', 'Familiar')
     )
     nombre = models.CharField(max_length=100, null=True, blank=True)
-    descripcion = models.CharField(max_length=250, null=True, blank=True)
-    tipo = models.CharField(max_length=1, choices=tipo_Antecedestes, null=True, blank=True)
+    tipo = models.CharField(max_length=8, choices=tipo_Antecedestes, null=True, blank=True)
+    descripcion = models.TextField(blank=True, null=True)
+
 
 
 class Doctor(User):
@@ -140,7 +142,8 @@ class Enfermedad(PropiedadNombre):
 class Consulta(models.Model):
     paciente = models.ForeignKey(Paciente)
     doctor = models.ForeignKey(Doctor)
-    motivo = models.CharField(max_length=200)
+    motivo = models.ForeignKey(Enfermedad)
+    #motivo = models.CharField(max_length=200)
     cod_diagnostico = models.CharField(max_length=10)
     fecha = models.DateField(auto_now=True, auto_now_add=False)
     conducta = models.TextField(blank=True, null=True)
@@ -152,22 +155,22 @@ class Consulta(models.Model):
 
 class ExamenFisico(models.Model):
     consulta = models.ForeignKey(Consulta)
-    enfermedad = models.ForeignKey(Enfermedad)
+    #enfermedad = models.ForeignKey(Enfermedad)
     # examenes
     estatura = models.IntegerField()
     peso = models.IntegerField()
     FC = models.IntegerField()
     FR = models.IntegerField()
     temperatura = models.IntegerField()
-    orl = models.CharField(max_length=100, blank=True, default="Normal")
-    piel_anexo = models.CharField(max_length=100, blank=True, default="Normal")
-    ostio_muscular = models.CharField(max_length=100, blank=True, default="Normal")
     cabeza_cuello = models.CharField(max_length=100, blank=True, default="Normal")
+    orl = models.CharField(max_length=100, blank=True, default="Normal")
     torax = models.CharField(max_length=100, blank=True, default="Normal")
     abdomen = models.CharField(max_length=100, blank=True, default="Normal")
     genito_urinario = models.CharField(max_length=100, blank=True, default="Normal")
+    osteo_muscular = models.CharField(max_length=100, blank=True, default="Normal")
+    piel_anexo = models.CharField(max_length=100, blank=True, default="Normal")
     extremidades = models.CharField(max_length=100, blank=True, default="Normal")
-    neurologico = models.CharField(max_length=100, blank=True, default="Normal", )
+    neurologico = models.CharField(max_length=100, blank=True, default="Normal")
 
     class Meta:
         verbose_name = 'Historia clinica'
