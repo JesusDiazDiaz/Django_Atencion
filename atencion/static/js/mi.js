@@ -10,7 +10,7 @@ $(document).ready(function(){
 
 */
 $('#fechaf').pickdate({
-		format: 'yyyy-mm-dd'
+	format: 'yyyy-mm-dd'
 });
 
 $('#fechai').pickdate({

@@ -15,17 +15,17 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from atencion import views
-from django.conf.urls import url, handler404
+from django.conf.urls import url, handler404, include
 from django.contrib import admin
-from atencion.views import error_404
 
-handler404 = '404.html'
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.log_in, name='log_in'),
     url(r'^home/', views.home, name='home'),
     url(r'^logout/', views.log_out, name='log_out'),
+    url(r'^chaining/', include('smart_selects.urls')),
     url(r'^agregar-paciente', views.agregar_paciente, name='agregar_paciente'),
     url(r'^modificar-paciente/(?P<pk>\w+)/', views.modificar_paciente, name='modificar_paciente'),
     url(r'^eliminar-paciente/(?P<pk>\w+)/', views.eliminar_paciente, name='eliminar_paciente'),
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^guardar-examen/', views.GuardarExamen.as_view(), name='guardar_examen'),
     url(r'^historia-clinica/(?P<pk>\w+)/', views.historia_clinica, name='historia_clinica'),
     url(r'^agregar-antecedentes/', views.add_antecedentes, name='agregar_antecedentes'),
-    url(r'^guardar-antecedentes/', views.save_antecentedes, name='guardar_antecedentes')
-]
+    url(r'^guardar-antecedentes/', views.save_antecentedes, name='guardar_antecedentes'),
 
+]
+handler404 = views.error_404

@@ -1,0 +1,16 @@
+cymysql==0.8.9
+Django==1.9
+django-cymysql==0.4.1
+django-smart-selects==1.2.2
+django-widget-tweaks==1.4.1
+
+
+gunicorn==19.0.0
+dj-database-url==0.3.0
+dj-static==0.0.6
+django-toolbelt==0.0.1
+psycopg2==2.5.3
+static==0.4
+static3==0.5.1
+wheel==0.24.0
+whitenoise==2.0.2

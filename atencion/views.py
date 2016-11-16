@@ -272,4 +272,4 @@ class GuardarExamen(BaseListViewMixin):
         return self.model.objects.order_by('-id')[0]
 
 def error_404(request):
-    return page_not_found(request, '404.html')
+    return render(request, '404.html', status=404)

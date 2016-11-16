@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from smart_selects.db_fields import ChainedForeignKey
 
 class BasePersona(models.Model):
     genero = (
@@ -99,7 +99,6 @@ class Paciente(BasePersona):
     )
     #tipo de sangre
     fecha_nacimiento = models.DateField(default="1900-12-30")
-
     estado_civil = models.CharField(max_length=7, choices=estadoC)
     ocupacion = models.CharField(max_length=50)
     vinculacion = models.CharField(max_length=12, choices=tipo_vinculacion)
@@ -107,9 +106,19 @@ class Paciente(BasePersona):
     programa = models.ForeignKey(Programa, blank=True, null=True)
     eps = models.ForeignKey(Eps)
     religion = models.ForeignKey(Religion)
-    ciudad = models.ForeignKey(Ciudad)
-    departamento = models.ForeignKey(Departamento)
+
+    #Smart
     pais = models.ForeignKey(Pais)
+    departamento = ChainedForeignKey(
+        Departamento,
+        chained_field='pais',
+        chained_model_field='pais'
+    )
+    ciudad = ChainedForeignKey(
+        Ciudad,
+        chained_field='departamento',
+        chained_model_field='depto'
+    )
     direccion = models.CharField(max_length=50)
 
 

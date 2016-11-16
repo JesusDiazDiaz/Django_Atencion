@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'gunicorn',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'smart_selects',
     'atencion',
 ]
 
@@ -77,13 +79,20 @@ WSGI_APPLICATION = 'SBienestar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+from .db_info import heroku
+
+DATABASES = heroku
+"""
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'mysql_cymysql',
+        'NAME': 'libre',
+        'USER': 'root',
+        'PASSWORD': '64565764',
+        'HOST': 'localhost',
+        'PORT': '3306', }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
