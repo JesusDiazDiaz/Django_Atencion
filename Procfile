@@ -1,1 +1,1 @@
-web: gunicorn SBienestar.wsgi
+web: gunicorn SBienestar.wsgi --log-file -
