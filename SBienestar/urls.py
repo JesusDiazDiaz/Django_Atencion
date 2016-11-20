@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^home/', views.home, name='home'),
     url(r'^logout/', views.log_out, name='log_out'),
     url(r'^chaining/', include('smart_selects.urls')),
-    url(r'^agregar-paciente', views.agregar_paciente, name='agregar_paciente'),
+    url(r'^agregar-paciente', views.AgregarPacienteView.as_view(), name='agregar_paciente'),
     url(r'^modificar-paciente/(?P<pk>\w+)/', views.modificar_paciente, name='modificar_paciente'),
     url(r'^eliminar-paciente/(?P<pk>\w+)/', views.eliminar_paciente, name='eliminar_paciente'),
     url(r'^buscar-paciente/', views.busqueda_paciente, name='buscar_paciente'),
@@ -42,7 +42,7 @@ urlpatterns = [
     url(r'^modificar-examen/(?P<pk>\w+)/', views.modificar_examen, name='modificar_examen'),
     url(r'^guardar-examen/', views.GuardarExamen.as_view(), name='guardar_examen'),
     url(r'^historia-clinica/(?P<pk>\w+)/', views.historia_clinica, name='historia_clinica'),
-    url(r'^agregar-antecedentes/', views.add_antecedentes, name='agregar_antecedentes'),
+    url(r'^agregar-antecedentes/(?P<pk>\w+)/', views.add_antecedentes, name='agregar_antecedentes'),
     url(r'^guardar-antecedentes/', views.save_antecentedes, name='guardar_antecedentes'),
 
 ]

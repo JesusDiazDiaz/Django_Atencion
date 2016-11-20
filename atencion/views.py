@@ -6,12 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib import messages
 from .models import Paciente, Consulta, Doctor, ExamenFisico, Antecedente
-from .forms import PacienteForm, ConsultaForm, ExamenForm, AntecedenteForm
+from .forms import PacienteForm, ConsultaForm, ExamenForm, AntecedenteForm, MultiConsulta
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.db.models import Q
-from django.forms import formset_factory
+from django.db.models import Count
 from datetime import date
-from django.views.defaults import page_not_found
 
 
 def log_in(request):
@@ -30,23 +28,63 @@ def log_in(request):
             context = {'msj': 'Usuario o Contraseña incorrecta', 'panel': True}
     return render(request, 'login.html', context)
 
-
 @login_required
 def home(request):
-    context = {'flag': False}
+    form = MultiConsulta(
+        request.POST or None
+    )
+    print(request.POST)
+    context = {
+        'form': form
+    }
+    if request.POST:
+        if form.is_valid():
+            instance = form.instance
+            data = {}
+            print(form.instance.facultad)
+            if instance.facultad:
+                data['paciente__facultad'] = instance.facultad
+                print(instance.facultad)
+            if instance.motivo:
+                data['motivo'] = instance.motivo
+                print(instance.motivo)
+            if instance.departamento:
+                data['paciente__departamento'] = instance.departamento
+                print(instance.departamento)
+            if instance.eps:
+                data['paciente__eps'] = instance.eps
+                print(instance.eps)
+            if instance.fecha_inicial and instance.fecha_final:
+                date['fecha__range'] = (instance.fecha_inicial, instance.fecha_final)
+                print(instance.fecha_inicial)
+            elif instance.fecha_inicial > instance.fecha_final:
+                context['error_fecha'] = True
+            if len(data) > 0:
+                context['queryset'] = Consulta.objects.filter(**data).aggregate(numero_consultas=Count('paciente'))
+
+    return render(request, 'home.html', context)
+
+
+"""
+@login_required
+def home(request):
+    context = {'flag': False, 'mayor': False}
     if request.POST:
         fechaInicial = request.POST.get('fecha_inicial')
         fechaFinal = request.POST.get('fecha_final')
         if fechaFinal is not "" and fechaInicial is not "":
-            print("fecha final {0} y fecha inicial {1}".format(fechaFinal, fechaInicial))
-            consultas = Consulta.objects.filter(
-                Q(fecha__gte=fechaInicial) & Q(fecha__lte=fechaFinal)
-            ).order_by('fecha')
-            if len(consultas) > 0:
-                context['consultas'] = consultas
-                context['flag'] = True
+            if fechaInicial < fechaFinal:
+                consultas = Consulta.objects.filter(fecha__range=(fechaInicial, fechaFinal)).order_by('fecha')
+                if consultas.exists():
+                    print(consultas.query)
+                    context['consultas'] = consultas
+                    context['flag'] = True
+                else:
+                    context['no_exists'] = True
+            else:
+                context['mayor'] = True
     return render(request, 'home.html', context)
-
+"""
 
 @login_required
 def log_out(request):
@@ -69,42 +107,38 @@ def busqueda_paciente(request):
             context['post'] = True
     return render(request, 'paciente.html', context)
 
+class BaseCreateViewMixin(LoginRequiredMixin, CreateView):
+    pass
+
+class AgregarPacienteView(BaseCreateViewMixin):
+    model = Paciente
+    form_class = PacienteForm
+    template_name = 'aggPaciente.html'
+    success_url = reverse_lazy('ver_paciente')
 
 @login_required
-def agregar_paciente(request):
-    form = PacienteForm(
-        request.POST or None
-    )
-    if request.POST:
-        if form.is_valid():
-            form.save()
-            return redirect('agregar_antecedentes')
-    return render(request, 'aggPaciente.html', {'form': form})
-
-
-@login_required
-def add_antecedentes(request):
-    paciente = Paciente.objects.order_by('-id')[0]
+def add_antecedentes(request, **kwargs):
     form = AntecedenteForm(
         request.POST or None,
-        paciente=paciente.id
+        paciente=kwargs.get('pk')
     )
     if request.POST and form.is_valid():
         form.save()
         return redirect('guardar_antecedentes')
-    return render(request, 'antecedentes.html',{'form': form})
+    return render(request, 'antecedentes.html', {'form': form})
 
 
 @login_required
 def save_antecentedes(request):
-    antecedente = Antecedente.objects.order_by('-id')[0]
-    return render(request, 'GuardadoAntecedentes.html', {'antecedente': antecedente})
+    context = {
+        'antecedente': Antecedente.objects.order_by('-id')[0]
+    }
+    return render(request, 'GuardadoAntecedentes.html', context)
 
 
 @login_required
 def modificar_paciente(request, **kwargs):
-    id = kwargs.get('pk')
-    paciente = Paciente.objects.get(id=id)
+    paciente = Paciente.objects.get(id=kwargs.get('pk'))
     form = PacienteForm(
         request.POST or None,
         instance=paciente
@@ -119,10 +153,6 @@ def modificar_paciente(request, **kwargs):
 @login_required
 def eliminar_paciente(request, **kwargs):
     Paciente.objects.get(id=kwargs.get('pk')).delete()
-    consultas = Consulta.objects.filter(paciente_id=kwargs.get('pk'))
-    for c in consultas:
-        ExamenFisico.objects.get(c.id).delete()
-    consultas.delete()
     return redirect('buscar_paciente')
 
 
@@ -270,6 +300,7 @@ class GuardarExamen(BaseListViewMixin):
 
     def get_queryset(self):
         return self.model.objects.order_by('-id')[0]
+
 
 def error_404(request):
     return render(request, '404.html', status=404)

@@ -30,20 +30,15 @@
                                                 </tr>
                                                 <tr>
                                                   <td><b>Telefono: </b>{{ paciente.telefono }}</td>
-                                                  <td> <b>Estado Civil: </b>{{ paciente.estado_civil}} </td>
-                                                  <td> <b>Ocupación: </b>{{ paciente.ocupacion}} </td>
+                                                  <td><b>Estado Civil: </b>{{ paciente.estado_civil}} </td>
+                                                  <td><b>Ocupación: </b>{{ paciente.ocupacion}} </td>
                                                   <td><b>EPS: </b>{{ paciente.eps }}</td>
                                                 </tr>
                                                 <tr>
                                                   <td><b>Vinculacion: </b>{{ paciente.vinculacion }}</td>
-                                                  {% if paciente.vinculacion == 'Estudiante'%}
                                                   <td><b>Facultad: </b>{{ paciente.facultad }}</td>
                                                   <td><b>Programa: </b>{{ paciente.programa }}</td>
-                                                  {% else %}
-                                                  <td></td>
-                                                  <td></td>
-                                                  {% endif %}
-                                                  <td></td>
+                                                  <td><b>G. Sanguíneo: </b>{{ paciente.tipo_sangre }}</td>
                                                 </tr>
                                                 <tr>
                                                   <td><b>Email: </b>{{ paciente.email}}</td>

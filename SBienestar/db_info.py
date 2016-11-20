@@ -10,6 +10,17 @@ local = {
     }
 }
 
+mysql = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bienestar',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
 heroku = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',

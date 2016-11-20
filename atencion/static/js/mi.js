@@ -3,12 +3,7 @@ $(document).ready(function(){
 
 	
 });
-/*
-$(document).ready(function(){
-    $('$fechaf').bootstrapMaterialDatePicker({ weekStart : 0, time: false });
-});
 
-*/
 $('#fechaf').pickdate({
 	format: 'yyyy-mm-dd'
 });
@@ -16,4 +11,18 @@ $('#fechaf').pickdate({
 $('#fechai').pickdate({
 	format: 'yyyy-mm-dd',
 	today: ''
+});
+
+$('#id_fecha_nacimiento').pickdate({
+	format: 'yyyy-mm-dd',
+	today: ''
+});
+
+$('#id_fecha_inicial').pickdate({
+	format: 'yyyy-mm-dd',
+	today: ''
+});
+
+$('#id_fecha_final').pickdate({
+	format: 'yyyy-mm-dd'
 });

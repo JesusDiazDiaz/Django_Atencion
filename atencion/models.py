@@ -37,7 +37,9 @@ class PropiedadNombre(models.Model):
 
 
 class Eps(PropiedadNombre):
-    pass
+    class Meta:
+        verbose_name = 'EPS'
+        verbose_name_plural = 'EPS'
 
 
 class Facultad(PropiedadNombre):
@@ -97,16 +99,27 @@ class Paciente(BasePersona):
         ('Casado', 'Casado/a'),
         ('Viudo', 'Viudo/a'),
     )
-    #tipo de sangre
-    fecha_nacimiento = models.DateField(default="1900-12-30")
+    sangre = (
+        ('AB+', 'AB+'),
+        ('AB-', 'AB-'),
+        ('A+', 'A-'),
+        ('B+', 'B-'),
+        ('O+', 'O+'),
+        ('O-', 'O-')
+    )
+    tipo_sangre = models.CharField(max_length=3, choices=sangre)
+    fecha_nacimiento = models.DateField(default="1990-12-30")
     estado_civil = models.CharField(max_length=7, choices=estadoC)
     ocupacion = models.CharField(max_length=50)
     vinculacion = models.CharField(max_length=12, choices=tipo_vinculacion)
     facultad = models.ForeignKey(Facultad, blank=True, null=True)
-    programa = models.ForeignKey(Programa, blank=True, null=True)
+    programa = ChainedForeignKey(
+        Programa,
+        chained_field='facultad',
+        chained_model_field='facultad'
+    )
     eps = models.ForeignKey(Eps)
     religion = models.ForeignKey(Religion)
-
     #Smart
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
@@ -123,13 +136,13 @@ class Paciente(BasePersona):
 
 
 class Antecedente(models.Model):
-    paciente = models.ForeignKey(Paciente)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     tipo_Antecedestes = (
         ('Personal', 'Personal'),
         ('Familiar', 'Familiar')
     )
-    nombre = models.CharField(max_length=100, null=True, blank=True)
-    tipo = models.CharField(max_length=8, choices=tipo_Antecedestes, null=True, blank=True)
+    nombre = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=8, choices=tipo_Antecedestes)
     descripcion = models.TextField(blank=True, null=True)
 
 
@@ -149,7 +162,7 @@ class Enfermedad(PropiedadNombre):
 
 
 class Consulta(models.Model):
-    paciente = models.ForeignKey(Paciente)
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor)
     motivo = models.ForeignKey(Enfermedad)
     #motivo = models.CharField(max_length=200)
@@ -163,7 +176,7 @@ class Consulta(models.Model):
 
 
 class ExamenFisico(models.Model):
-    consulta = models.ForeignKey(Consulta)
+    consulta = models.ForeignKey(Consulta, on_delete=models.CASCADE)
     #enfermedad = models.ForeignKey(Enfermedad)
     # examenes
     estatura = models.IntegerField()

@@ -17,12 +17,17 @@
                     <div class="card">
                         <div class="card-main">
                             <div class="card-inner">
+                                {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    <strong class="text-red">
+                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Error!
+                                    </strong>
+                                    <p>Los campos en rojo son obligatorios. </p>
+                                </div>
+                                {% endif %}
                                 <form method="POST">{% csrf_token %}
                                     {% for field in form %}
                                         <div class="form-group form-group-label {% if field.errors %} form-group-red {% endif %}">
-                                            {% if field.errors %}
-                                                <strong class="text-red">{{ field.errors }}</strong>
-                                            {% endif %}
                                             <label class="floating-label">{{ field.label }}</label>
                                             {% render_field field class='form-control' %}
                                         </div>

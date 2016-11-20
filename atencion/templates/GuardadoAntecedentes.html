@@ -1,60 +1,60 @@
 {% extends 'basehome.html'%}
 {% block main-content%}
 
-    <div class="content-header ui-content-header" xmlns="http://www.w3.org/1999/html">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
-                    <h1 class="content-heading">Paciente:  {{ antecedente.paciente.nombre_completo }}</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="content-header ui-content-header" xmlns="http://www.w3.org/1999/html">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
-                <section class="content-inner margin-top-no">
-                    <div class="card">
-                        <div class="card-main">
-                            <div class="card-inner margin-bottom-no">
-                                <p class="card-heading">
-                                    <div class="alert alert-success" align="center">
-                                        <strong>Antecedente guardado con exito.</strong>
-                                    </div>
-                                </p>
-                                <div class="card-table">
-                                    <div class="table-responsive">
-                                        <table class="table" title="A table within a card">
-                                            <thead>
-                                                <tr>
-                                                    <td>Nombre</td>
-                                                    <td>Tipo</td>
-                                                    <td>Descripcion</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>{{ antecedente.nombre }}</td>
-                                                    <td>{{ antecedente.tipo }}</td>
-                                                    <td>{{ antecedente.descripcion }}<</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-action">
-                                <div class="card-action-btn pull-right">
-                                    <a href="{% url 'agregar_antecedentes' %}" data-toggle="tooltip" class="btn btn-indigo">
-                                        Agregar otro
-                                    </a>
-                                    <a href="{% url 'agregar_consulta' antecedente.paciente.id %}" class="btn btn-verde">Agregar consulta</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <h1 class="content-heading">Paciente:  {{ antecedente.paciente.nombre_completo }}</h1>
             </div>
         </div>
     </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-lg-push-3 col-sm-10 col-sm-push-1">
+            <section class="content-inner margin-top-no">
+                <div class="card">
+                    <div class="card-main">
+                        <div class="card-inner margin-bottom-no">
+                            <p class="card-heading">
+                                <div class="alert alert-success" align="center">
+                                    <strong>Antecedente guardado con exito.</strong>
+                                </div>
+                            </p>
+                            <div class="card-table">
+                                <div class="table-responsive">
+                                    <table class="table" title="A table within a card">
+                                        <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                <td>Tipo</td>
+                                                <td>Descripcion</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>{{ antecedente.nombre }}</td>
+                                                <td>{{ antecedente.tipo }}</td>
+                                                <td>{{ antecedente.descripcion }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <div class="card-action-btn pull-right">
+                                <a href="{% url 'agregar_antecedentes' antecedente.paciente.id %}" data-toggle="tooltip" class="btn btn-indigo">
+                                    Agregar otro
+                                </a>
+                                <a href="{% url 'agregar_consulta' antecedente.paciente.id %}" class="btn btn-verde">Agregar consulta</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 {% endblock%}

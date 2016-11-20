@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'gunicorn',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,9 +78,9 @@ WSGI_APPLICATION = 'SBienestar.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-from .db_info import heroku
+from .db_info import heroku, local, mysql
 
-DATABASES = heroku
+DATABASES = local
 """
 DATABASES = {
     'default': {
