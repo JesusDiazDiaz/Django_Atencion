@@ -19,12 +19,22 @@
                         <div class="card-main">
                             <div class="card-inner">
                                 <p class="card-heading">Consolidado</p>
-                                <div class="card-table">
-                                    <div class="table-responsive">
-                                        <table class="table">
-
-                                        </table>
-                                    </div>
+                                <div class="row">
+                                    <form method="POST" id="form-multi">{% csrf_token %}
+                                        {% for field in form %}
+                                            <div class="col-md-6">
+                                                <div class="form-group form-group-label">
+                                                    <label class="floating-label">{{ field.label }}</label>
+                                                    {% render_field field class='form-control' %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <div class="card-action-btn pull-right">
+                                    <button type="submit" class="btn btn-verde" form="form-multi">Enviar</button>
                                 </div>
                             </div>
                         </div>

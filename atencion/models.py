@@ -200,3 +200,26 @@ class ExamenFisico(models.Model):
 
     def __str__(self):
         return 'Historia clinica de {0}'.format(self.paciente.nombre_completo())
+
+
+class MultiConsulta(models.Model):
+    facultad = models.ForeignKey(Facultad)
+    programa = ChainedForeignKey(
+        Programa,
+        chained_field='facultad',
+        chained_model_field='facultad'
+    )
+    pais = models.ForeignKey(Pais)
+    departamento = ChainedForeignKey(
+        Departamento,
+        chained_field='pais',
+        chained_model_field='pais'
+    )
+    ciudad = ChainedForeignKey(
+        Ciudad,
+        chained_field='departamento',
+        chained_model_field='depto'
+    )
+    eps = models.ForeignKey(Eps)
+    fecha_inicial = models.DateField()
+    fecha_final = models.DateField()

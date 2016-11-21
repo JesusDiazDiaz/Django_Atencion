@@ -27,7 +27,7 @@ def log_in(request):
         else:
             context = {'msj': 'Usuario o Contraseña incorrecta', 'panel': True}
     return render(request, 'login.html', context)
-"""
+
 @login_required
 def home(request):
     form = MultiConsultaForm(
@@ -38,7 +38,6 @@ def home(request):
     if request.POST:
         if form.is_valid():
             data = {}
-            print(form.instance.facultad)
             if instance.facultad:
                 data['paciente__facultad'] = instance.facultad
                 print(instance.facultad)
@@ -57,16 +56,16 @@ def home(request):
             elif instance.fecha_inicial > instance.fecha_final:
                 context['error_fecha'] = True
             if len(data) > 0:
-                context['queryset'] = Consulta.objects.filter(**data).aggregate(numero_consultas=Count('paciente'))
+                consultas = Consulta.objects.filter(**data).aggregate(numero_consultas=Count('paciente'))
+                context['post'] = True
     context['form'] = form
     return render(request, 'home.html', context)
+
+
 """
-
-
 @login_required
 def home(request):
     context = {'flag': False, 'mayor': False}
-
     context['consolidado'] = Consulta.objects.values('paciente__programa').annotate(total_consultas=Count('paciente'))
     if request.POST:
         fechaInicial = request.POST.get('fecha_inicial')
@@ -83,7 +82,7 @@ def home(request):
             else:
                 context['mayor'] = True
     return render(request, 'home.html', context)
-
+"""
 
 @login_required
 def log_out(request):

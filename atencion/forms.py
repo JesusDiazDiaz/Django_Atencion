@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from .models import Paciente, Doctor, Consulta, ExamenFisico, Antecedente, Facultad, Enfermedad,Departamento, Eps
+from .models import Paciente, Doctor, Consulta, ExamenFisico, Antecedente, Facultad, Enfermedad,Departamento, Eps, MultiConsulta
 
 
 class PacienteForm(forms.ModelForm):
@@ -9,7 +9,12 @@ class PacienteForm(forms.ModelForm):
         model = Paciente
         fields = '__all__'
 
-class MultiConsultaForm(forms.Form):
+
+class MultiConsultaForm(forms.ModelForm):
+    class Meta:
+        model = MultiConsulta
+        fields = '__all__'
+    """
     facultad = forms.ModelChoiceField(
         queryset=Facultad.objects.all(),
         empty_label='Sin Seleccionar',
@@ -32,6 +37,7 @@ class MultiConsultaForm(forms.Form):
     )
     fecha_inicial = forms.DateField(required=False)
     fecha_final = forms.DateField(required=False)
+    """
 
 
 
