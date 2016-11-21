@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
 from django.contrib import messages
 from .models import Paciente, Consulta, Doctor, ExamenFisico, Antecedente
-from .forms import PacienteForm, ConsultaForm, ExamenForm, AntecedenteForm, MultiConsulta
+from .forms import PacienteForm, ConsultaForm, ExamenForm, AntecedenteForm, MultiConsultaForm
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.db.models import Count
 from datetime import date
@@ -27,19 +27,16 @@ def log_in(request):
         else:
             context = {'msj': 'Usuario o Contraseña incorrecta', 'panel': True}
     return render(request, 'login.html', context)
-
+"""
 @login_required
 def home(request):
-    form = MultiConsulta(
+    form = MultiConsultaForm(
         request.POST or None
     )
-    print(request.POST)
-    context = {
-        'form': form
-    }
+    context = {}
+    instance = form.instance
     if request.POST:
         if form.is_valid():
-            instance = form.instance
             data = {}
             print(form.instance.facultad)
             if instance.facultad:
@@ -61,14 +58,16 @@ def home(request):
                 context['error_fecha'] = True
             if len(data) > 0:
                 context['queryset'] = Consulta.objects.filter(**data).aggregate(numero_consultas=Count('paciente'))
-
+    context['form'] = form
     return render(request, 'home.html', context)
-
-
 """
+
+
 @login_required
 def home(request):
     context = {'flag': False, 'mayor': False}
+
+    context['consolidado'] = Consulta.objects.values('paciente__programa').annotate(total_consultas=Count('paciente'))
     if request.POST:
         fechaInicial = request.POST.get('fecha_inicial')
         fechaFinal = request.POST.get('fecha_final')
@@ -84,7 +83,7 @@ def home(request):
             else:
                 context['mayor'] = True
     return render(request, 'home.html', context)
-"""
+
 
 @login_required
 def log_out(request):

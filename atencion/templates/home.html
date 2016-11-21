@@ -19,31 +19,12 @@
                         <div class="card-main">
                             <div class="card-inner">
                                 <p class="card-heading">Consolidado</p>
-                                <form method="POST" id="form-multi">{% csrf_token %}
-                                    <div class="row">
-                                    {% for field in form %}
-                                        <div class="col-md-6">
-                                            <div class="form-group form-group-label">
-                                                <label class="floating-label">{{ field.label }}</label>
-                                                {% render_field field class='form-control' %}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                    </div>
+                                <div class="card-table">
+                                    <div class="table-responsive">
+                                        <table class="table">
 
-                                </form>
-                                {% if error_fecha%}
-                                    <strong class="text-red">
-                                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Error!
-                                    </strong>
-                                    <p>Ingrese una fecha inicial menor a la final. </p>
-                                {% endif %}
-                            </div>
-                            <div class="card-action">
-                                <div class="card-action-btn pull-right">
-                                    <button type="submit" form="form-multi" class="btn btn-verde">
-                                        <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

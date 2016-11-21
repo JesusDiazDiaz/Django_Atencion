@@ -9,7 +9,7 @@ class PacienteForm(forms.ModelForm):
         model = Paciente
         fields = '__all__'
 
-class MultiConsulta(forms.Form):
+class MultiConsultaForm(forms.Form):
     facultad = forms.ModelChoiceField(
         queryset=Facultad.objects.all(),
         empty_label='Sin Seleccionar',
@@ -32,6 +32,7 @@ class MultiConsulta(forms.Form):
     )
     fecha_inicial = forms.DateField(required=False)
     fecha_final = forms.DateField(required=False)
+
 
 
 class AntecedenteForm(forms.ModelForm):
