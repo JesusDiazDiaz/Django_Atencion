@@ -203,23 +203,29 @@ class ExamenFisico(models.Model):
 
 
 class MultiConsulta(models.Model):
-    facultad = models.ForeignKey(Facultad)
+    facultad = models.ForeignKey(Facultad, blank=True, null=True)
     programa = ChainedForeignKey(
         Programa,
         chained_field='facultad',
-        chained_model_field='facultad'
+        chained_model_field='facultad',
+        blank=True,
+        null=True
     )
     pais = models.ForeignKey(Pais)
     departamento = ChainedForeignKey(
         Departamento,
         chained_field='pais',
-        chained_model_field='pais'
+        chained_model_field='pais',
+        blank=True,
+        null=True
     )
     ciudad = ChainedForeignKey(
         Ciudad,
         chained_field='departamento',
-        chained_model_field='depto'
+        chained_model_field='depto',
+        blank=True,
+        null=True
     )
-    eps = models.ForeignKey(Eps)
-    fecha_inicial = models.DateField()
-    fecha_final = models.DateField()
+    eps = models.ForeignKey(Eps, null=True, blank=True)
+    fecha_inicial = models.DateField(null=True, blank=True)
+    fecha_final = models.DateField(null=True, blank=True)

@@ -33,32 +33,36 @@ def home(request):
     form = MultiConsultaForm(
         request.POST or None
     )
-    context = {}
+    context = {'post': None, 'consultas': None, 'form': form, 'no_consultas': None, 'error_fecha': None}
     instance = form.instance
     if request.POST:
         if form.is_valid():
             data = {}
             if instance.facultad:
                 data['paciente__facultad'] = instance.facultad
-                print(instance.facultad)
-            if instance.motivo:
-                data['motivo'] = instance.motivo
-                print(instance.motivo)
+            if instance.programa:
+                data['paciente__programa'] = instance.programa
+            if instance.pais:
+                data['paciente__pais'] = instance.pais
             if instance.departamento:
                 data['paciente__departamento'] = instance.departamento
-                print(instance.departamento)
+            if instance.ciudad:
+                data['paciente__ciudad'] = instance.ciudad
             if instance.eps:
                 data['paciente__eps'] = instance.eps
-                print(instance.eps)
             if instance.fecha_inicial and instance.fecha_final:
-                date['fecha__range'] = (instance.fecha_inicial, instance.fecha_final)
-                print(instance.fecha_inicial)
-            elif instance.fecha_inicial > instance.fecha_final:
-                context['error_fecha'] = True
+                if instance.fecha_inicial < instance.fecha_final:
+                   data['fecha__range'] = (instance.fecha_inicial, instance.fecha_final)
             if len(data) > 0:
-                consultas = Consulta.objects.filter(**data).aggregate(numero_consultas=Count('paciente'))
+                print(data)
                 context['post'] = True
-    context['form'] = form
+                consulta = Consulta.objects.filter(**data)
+                if consulta.count() > 0:
+                    context['consultas'] = consulta
+                else:
+                    context['no_consultas'] = True
+            else:
+                context['post'] = False
     return render(request, 'home.html', context)
 
 

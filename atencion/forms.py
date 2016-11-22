@@ -14,31 +14,6 @@ class MultiConsultaForm(forms.ModelForm):
     class Meta:
         model = MultiConsulta
         fields = '__all__'
-    """
-    facultad = forms.ModelChoiceField(
-        queryset=Facultad.objects.all(),
-        empty_label='Sin Seleccionar',
-        required=False
-    )
-    motivo = forms.ModelChoiceField(
-        queryset=Enfermedad.objects.all(),
-        empty_label='Sin Seleccionar',
-        required=False
-    )
-    departamento = forms.ModelChoiceField(
-        queryset=Departamento.objects.all(),
-        empty_label='Sin Seleccionar',
-        required=False
-    )
-    eps = forms.ModelChoiceField(
-        queryset=Eps.objects.all(),
-        empty_label='Sin Seleccionar',
-        required=False
-    )
-    fecha_inicial = forms.DateField(required=False)
-    fecha_final = forms.DateField(required=False)
-    """
-
 
 
 class AntecedenteForm(forms.ModelForm):
